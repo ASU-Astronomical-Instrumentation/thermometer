@@ -17,7 +17,7 @@ class Temperature extends React.Component {
     if (isNaN(temperature)) {
         return <H1 id="info">Loading...</H1>;
     }
-    return <H1 id="info">{temperature}&deg;{this.props.scale}</H1>;
+    return <H1 id="temp">{temperature}&deg;{this.props.scale}</H1>;
   }
 }
 

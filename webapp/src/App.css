@@ -19,3 +19,7 @@
   /* visibility: hidden; */
   display: none;
 }
+
+#temp {
+  font-size: 12vw;
+}
