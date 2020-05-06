@@ -38,12 +38,10 @@ class BluetoothSetTemperature extends React.Component  {
     console.log(this.state.bluetoothConnection); 
     
     this.temperatureInterval = setInterval( () => {
-      let readTemperature = readBluetoothCharacteristic(
-         this.state.bluetoothConnection,
-         bluetoothTemperatureContants.characteristics.temperature_measurement.str);
+      let readTemperature = readBluetoothCharacteristic(this.state.bluetoothConnection, bluetoothTemperatureContants.characteristics.temperature_measurement.str);
       readTemperature.then(
         (temperature) => {
-          this.props.actions.setTemperature(readTemperature);
+          this.props.actions.setTemperature(temperature);
         }, 
         (error) => {
           console.log(error); 

@@ -13,6 +13,7 @@ class Temperature extends React.Component {
   }
 
   render() {
+    var temperature = parseFloat(this.props.degrees).toFixed(2); 
     return <H1>{this.props.degrees}&deg;{this.props.scale}</H1>;
   }
 }
