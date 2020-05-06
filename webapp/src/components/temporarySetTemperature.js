@@ -16,8 +16,8 @@ class TemporarySetTemperature extends React.Component  {
   
   componentDidMount() {
     this.count = setInterval( () => {
-      let randomTemperature = Math.random() * (115 - 90) + 90;
-      this.props.actions.setTemperature(randomTemperature.toPrecision(4));
+      let randomTemperature = (Math.random() * (115 - 90) + 90).toPrecision(4);
+      this.props.actions.setTemperature(randomTemperature);
     }, 3000); 
   }
 
@@ -26,6 +26,8 @@ class TemporarySetTemperature extends React.Component  {
   }
 
   render() {
+
+
     return (
       <div className="App">
       </div>
