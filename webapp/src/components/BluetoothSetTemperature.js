@@ -7,8 +7,8 @@ import styled from 'styled-components'
 
 const Button = styled.button`
   font-family: Orbitron;
-  font-size: 6em;
   color: white;
+  font-size: 5vw;
   background-color: Transparent;
   background-repeat:no-repeat;
   border: none;
