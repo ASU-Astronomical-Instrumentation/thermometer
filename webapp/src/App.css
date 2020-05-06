@@ -14,3 +14,8 @@
   font-family: 'Orbitron';
   src: local('Orbitron'), url(./fonts/Orbitron-Bold.ttf) format('truetype');
 }
+
+#info{
+  /* visibility: hidden; */
+  display: none;
+}
