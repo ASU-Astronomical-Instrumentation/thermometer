@@ -1,8 +1,15 @@
 import React from "react";
+import styled from 'styled-components'
+
+const H1 = styled.h1`
+  font-family: courier;
+  color: white;
+  font-size: 12em;
+`
 
 class Temperature extends React.Component {
   render() {
-    return <h1>{this.props.degrees}&deg;{this.props.scale}</h1>;
+    return <H1>{this.props.degrees}&deg;{this.props.scale}</H1>;
   }
 }
 
