@@ -2,34 +2,62 @@ import React from "react";
 import { bindActionCreators } from 'redux';
 import * as temperatureActions from '../actions/temperatureActions';
 import { connect } from 'react-redux'
-import * as bt from '../bt_temp'
+import { readBluetoothCharacteristic, bluetoothInit, bluetoothTemperatureContants} from '../bt_temp'
 
 class BluetoothSetTemperature extends React.Component  {
   constructor(props) {
     super(props);
-  }
-
-  // placeholder to be replaced by bytestream values
-  // these values will be updated every second?
-  // we can also convert F to C on our frontend instead of taking 2 values from the bytestream
-  // let degrees = 69.1;
-
-  componentDidMount() {
-    this.count = setInterval( () => {
-      let readTemperature = bt.bt_temp_read(
-         this.conn,
-         bt.bt_temp_consts.characteristics.temperature_measurement.str);
-      this.props.actions.setTemperature(readTemperature);
-    }, 1000);
+    this.state = {
+      currentTemperature: 0,
+      bluetoothConnection: undefined
+    }
+    this.temperatureInterval = undefined; 
+    this.initializeBluetoothInterval = this.initializeBluetoothInterval.bind(this);
+    this.initializeBluetoothConnection = this.initializeBluetoothConnection.bind(this);
   }
 
   componentWillUnmount() {
-    clearInterval(this.timer);
+    if (this.temperatureInterval != undefined) {
+      clearInterval(this.temperatureInterval);
+    }
+  }
+
+  initializeBluetoothConnection() {
+    let connection = bluetoothInit();
+    connection.then(
+      (conn) => {
+        this.setState({bluetoothConnection: conn}, this.initializeBluetoothInterval);
+      }, 
+      (error) => {
+        console.log(error);
+        this.setState({bluetoothError: error})
+      });
+  }
+
+  initializeBluetoothInterval() {
+    console.log(this.state.bluetoothConnection); 
+    
+    this.temperatureInterval = setInterval( () => {
+      let readTemperature = readBluetoothCharacteristic(
+         this.state.bluetoothConnection,
+         bluetoothTemperatureContants.characteristics.temperature_measurement.str);
+      readTemperature.then(
+        (temperature) => {
+          this.props.actions.setTemperature(readTemperature);
+        }, 
+        (error) => {
+          console.log(error); 
+          this.setState({readTemperatureError: error});
+        }
+      )
+      
+    }, 1000);
   }
 
   render() {
     return (
-      <div className="App">
+      <div>
+        <button type="button" onClick={this.initializeBluetoothConnection}>Start Bluetooth</button>
       </div>
     );
   }

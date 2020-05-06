@@ -22,10 +22,10 @@ function(value, offset) {
  */
 
 /**
- * @name bt_temp_consts
+ * @name bluetoothTemperatureContants
  * @description bluetooth temperature constants
  */
-export const bt_temp_consts = {
+export const bluetoothTemperatureContants = {
     services: {
         health_thermometer: {
             str: 'health_thermometer',
@@ -53,15 +53,15 @@ export const bt_temp_consts = {
 }
 
 /**
- * @name bt_temp_init
+ * @name bluetoothInit
  * @description Initializes the bluetooth temperature device connection
  * @returns connection object or empty object on error
  */
-export let bt_temp_init =
+export let bluetoothInit =
 async function() {
     let device = await navigator.bluetooth.requestDevice({
         filters: [{
-            services: [ bt_temp_consts.services.health_thermometer.str ]
+            services: [ bluetoothTemperatureContants.services.health_thermometer.str ]
         }]
     });
 
@@ -82,7 +82,7 @@ async function() {
         console.log("Connected to server");
     }
 
-    let service = await server.getPrimaryService( bt_temp_consts.services.health_thermometer.str );
+    let service = await server.getPrimaryService( bluetoothTemperatureContants.services.health_thermometer.str );
     if(service == undefined) {
         console.error("No connection to service");
         return {};
@@ -99,14 +99,14 @@ async function() {
 }
 
 /**
- * @name bt_temp_read
+ * @name readBluetoothCharacteristic 
  * @description Reads data from the given characteristic temperature device connection
  * @returns float or throws error
  */
-export let bt_temp_read =
+export let readBluetoothCharacteristic =
 async function(connection, characteristic) {
-    if(characteristic == bt_temp_consts.characteristics.temperature_measurement.str) {
-        let chr = await connection.service.getCharacteristic(bt_temp_consts.characteristics.temperature_measurement.str);
+    if(characteristic == bluetoothTemperatureContants.characteristics.temperature_measurement.str) {
+        let chr = await connection.service.getCharacteristic(bluetoothTemperatureContants.characteristics.temperature_measurement.str);
 
         if(chr == undefined) {
             console.log("No connection to characteristic");
