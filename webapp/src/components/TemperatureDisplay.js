@@ -1,4 +1,4 @@
-import React from "react"; 
+import React from "react";
 import styled from 'styled-components'
 
 const H1 = styled.h1`
@@ -9,12 +9,15 @@ const H1 = styled.h1`
 
 class Temperature extends React.Component {
   constructor(props) {
-    super(props); 
+    super(props);
   }
 
   render() {
-    var temperature = parseFloat(this.props.degrees).toFixed(2); 
-    return <H1>{this.props.degrees}&deg;{this.props.scale}</H1>;
+    var temperature = parseFloat(this.props.degrees).toFixed(2);
+    if (isNaN(temperature)) {
+        return <H1>Loading...</H1>;
+    }
+    return <H1>{temperature}&deg;{this.props.scale}</H1>;
   }
 }
 
