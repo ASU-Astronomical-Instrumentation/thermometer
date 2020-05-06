@@ -1,20 +1,33 @@
 import React from "react";
 import "./App.css";
+import { connect } from 'react-redux';
+import Temp from "./components/Temperature/TemperatureDisplay";
+import TemporarySetTemperature from "./components/temporarySetTemperature";
 
-import Temp from "./components/Temperature/Temperature.js";
+class App extends React.Component  {
+  constructor(props) {
+    super(props); 
+  }
 
-function App() {
   // placeholder to be replaced by bytestream values
   // these values will be updated every second?
   // we can also convert F to C on our frontend instead of taking 2 values from the bytestream
-  let degrees = 69.1;
-  let scale = "F";
+  // let degrees = 69.1;
+  
 
-  return (
-    <div className="App">
-      <Temp degrees={degrees} scale={scale} />
-    </div>
-  );
+  render() {
+    let scale = "F";
+    return (
+      <div className="App">
+        <TemporarySetTemperature />
+        <Temp degrees={this.props.temperatureDisplay.temperature} scale={scale} />
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  temperatureDisplay: state.temperatureDisplay
+});
+
+export default connect(mapStateToProps)(App);
