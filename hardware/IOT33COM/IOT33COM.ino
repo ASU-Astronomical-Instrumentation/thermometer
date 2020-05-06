@@ -1,87 +1,91 @@
 #include <ArduinoBLE.h>
-BLEService tempservice("1101");
-//BLEUnsignedCharCharacteristic temperature("2101", BLERead | BLENotify);
-//BLEStringCharacteristic temperature("2101", BLERead | BLENotify);
-BLEUnsignedCharCharacteristic temperature("2101", BLERead | BLENotify);
+#include "IEEE11073float.h"
 
+// Bluetooth Health Thermometer Service UUID
+BLEService tempService("1809");
+// Bluetooth Temperature Measure Characteristic
+BLECharacteristic tempMeasureChar("2A1C", BLERead | BLENotify, 5);
 
-//TMP36 Pin Variables
-int sensorPin = 0; //the analog pin the TMP36's Vout (sense) pin is connected to
-                        //the resolution is 10 mV / degree centigrade with a
-                        //500 mV offset to allow for negative temperatures
- 
+// Gets the temperature in Celsius from the sensor pin
+float getTemp(int sensorPin, float offset=5.6, int maxCount=1000);
+
 /*
- * setup() - this function runs once when you turn your Arduino on
- * We initialize the serial connection with the computer
- */
-void setup()
-{  
-  Serial.begin(9600);  //Start the serial connection with the computer
-                       //to view the result open the serial monitor
-  if (!BLE.begin()) 
-  {
-  Serial.println("starting BLE failed!");
-  while (1);
-  }
+* TMP36 Pin Variables
+* the analog pin the TMP36's Vout (sense) pin is connected to
+* the resolution is 10 mV / degree centigrade with a
+* 500 mV offset to allow for negative temperatures
+*/
+int sensorPin = 0;
 
-  BLE.setDeviceName("thermometer");
-  BLE.setAdvertisedService(tempservice);
-  tempservice.addCharacteristic(temperature);
-  BLE.addService(tempservice);
+boolean DEBUG = true;
 
-  analogReadResolution(12);
-  BLE.advertise();
-  Serial.println("Bluetooth device active, waiting for connections...");                    
-}
- 
-void loop()                     // run over and over again
-{
-BLEDevice central = BLE.central();
-
-if (central) {
-  while (central.connected()) {
-    float offset = 5.6;
-    int avgNum = 1000;
-    int val = 0;
-    int i = 0;
-     
-     while (i<avgNum)
-        {
-        val += analogRead(sensorPin);
-        //Serial.println(val);
-        delay(0.5);
-        i += 1;
+/*
+* Initalizes the bluetooth and serial readers
+*/
+void setup() {
+    Serial.begin(9600);  //Start the serial connection with the computer
+    //to view the result open the serial monitor
+    if (!BLE.begin())
+    {
+        if (DEBUG) {
+            Serial.println("starting BLE failed!");
         }
-     // change the resolution to 12 bits and read A0
-     
-     //getting the voltage reading from the temperature sensor
-     //int reading = analogRead(sensorPin);  
-    
-     
-     // converting that reading to voltage, for 3.3v arduino use 3.3
-     float voltage = val/avgNum * 3.267;
-     voltage /= 4096.0;
-     
-     // print out the voltage
-     Serial.print(voltage, 4); Serial.println(" volts");
-     
-     // now print out the temperature
-     //float temperatureC = ((15/0.21678)*(voltage - 1.1512 ))+ offset ;  //converting from 10 mv per degree wit 500 mV offset
-                                                   //to degrees ((voltage - 500mV) times 100)
-     float temperatureC = (log(voltage) - 0.21554614419403478)/ 0.008664680814404342;                                              
-     Serial.print(temperatureC); Serial.println(" degrees C");
-     
-     // now convert to Fahrenheit
-     float temperatureF = (temperatureC * 9.0 / 5.0) + 32.0;
-     Serial.print(temperatureF); Serial.println(" degrees F");
-    
-     char txtemp = (temperatureF);
-     //Serial.print("Connected to central: ");
-     //Serial.println(central.address());
-     //temperature.setValue(temperatureF);
-     temperature.writeValue(txtemp);
-     delay(1000);
-   }
- }
- delay(1000);                                     //waiting a second
+        while (1);
+    }
+
+    BLE.setLocalName("Thermometer");
+    BLE.setAdvertisedService(tempService);
+    tempService.addCharacteristic(tempMeasureChar);
+    BLE.addService(tempService);
+
+    analogReadResolution(12);
+    BLE.advertise();
+    if (DEBUG) {
+        Serial.println("Bluetooth device active, waiting for connections...");
+    }
+}
+
+
+void loop() {
+    BLEDevice central = BLE.central();
+
+    if (central) {
+        while (central.connected()) {
+            double temperatureC = getTemp(sensorPin);
+            if (DEBUG) {
+                Serial.print(temperatureC); Serial.println(" degrees C");
+            }
+            // now convert to Fahrenheit
+            double temperatureF = (temperatureC * 9.0 / 5.0) + 32.0;
+            if (DEBUG) {
+                Serial.print(temperatureF); Serial.println(" degrees F");
+            }
+
+            uint8_t writeVals[5] = {0};
+            *writeVals = 1;
+            uint8_t floatVals[4] = {0};
+            float2IEEE11073(temperatureF, floatVals);
+            memcpy(&writeVals[1], &floatVals, 4);
+
+            tempMeasureChar.writeValue(writeVals, 5);
+            delay(1000);
+        }
+    }
+    delay(1000);
+}
+
+float getTemp(int sensorPin, float offset, int maxCount) {
+    int sumVal = 0;
+    for (int i = 0; i < maxCount; i++) {
+        sumVal += analogRead(sensorPin);
+        delay(0.5);
+    }
+
+    float voltage = sumVal / maxCount * 3.267;
+    voltage /= 4096.0;
+
+    if (DEBUG) {
+        Serial.print(voltage, 4); Serial.println(" volts");
+    }
+    return (log(voltage) - 0.21554614419403478) / 0.008664680814404342;
 }
