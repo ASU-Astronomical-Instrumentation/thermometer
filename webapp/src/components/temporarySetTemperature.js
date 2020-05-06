@@ -22,7 +22,7 @@ class TemporarySetTemperature extends React.Component  {
   }
 
   componentWillUnmount() {
-
+    clearInterval(this.timer);
   }
 
   render() {
