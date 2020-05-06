@@ -7,8 +7,14 @@ import styled from 'styled-components'
 
 const Button = styled.button`
   font-family: Orbitron;
-  font-size: 2em;
-  color: #2f2f2f;
+  font-size: 6em;
+  color: white;
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
 `
 
 class BluetoothSetTemperature extends React.Component  {
@@ -64,7 +70,7 @@ class BluetoothSetTemperature extends React.Component  {
   render() {
     return (
       <div>
-        <Button id="button" type="button" onClick={this.initializeBluetoothConnection}>Connect to Device</Button>
+        <Button id="button" type="button" onClick={this.initializeBluetoothConnection}> > Connect to Device</Button>
       </div>
     );
   }
