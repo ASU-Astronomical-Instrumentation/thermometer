@@ -15,9 +15,9 @@ class Temperature extends React.Component {
   render() {
     var temperature = parseFloat(this.props.degrees).toFixed(2);
     if (isNaN(temperature)) {
-        return <H1>Loading...</H1>;
+        return <H1 id="info">Loading...</H1>;
     }
-    return <H1>{temperature}&deg;{this.props.scale}</H1>;
+    return <H1 id="info">{temperature}&deg;{this.props.scale}</H1>;
   }
 }
 

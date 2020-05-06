@@ -3,6 +3,13 @@ import { bindActionCreators } from 'redux';
 import * as temperatureActions from '../actions/temperatureActions';
 import { connect } from 'react-redux'
 import { readBluetoothCharacteristic, bluetoothInit, bluetoothTemperatureContants} from '../bt_temp'
+import styled from 'styled-components'
+
+const Button = styled.button`
+  font-family: Orbitron;
+  font-size: 2em;
+  color: #2f2f2f;
+`
 
 class BluetoothSetTemperature extends React.Component  {
   constructor(props) {
@@ -24,6 +31,8 @@ class BluetoothSetTemperature extends React.Component  {
 
   initializeBluetoothConnection() {
     let connection = bluetoothInit();
+    document.getElementById("info").style.display = "inline"
+    document.getElementById("button").style.display = "none"
     connection.then(
       (conn) => {
         this.setState({bluetoothConnection: conn}, this.initializeBluetoothInterval);
@@ -55,7 +64,7 @@ class BluetoothSetTemperature extends React.Component  {
   render() {
     return (
       <div>
-        <button type="button" onClick={this.initializeBluetoothConnection}>Start Bluetooth</button>
+        <Button id="button" type="button" onClick={this.initializeBluetoothConnection}>Connect to Device</Button>
       </div>
     );
   }
