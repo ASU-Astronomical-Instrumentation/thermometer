@@ -4,7 +4,7 @@ import styled from 'styled-components'
 const H1 = styled.h1`
   font-family: Orbitron;
   color: white;
-  font-size: 12em;
+  font-size: 5vw;
 `
 
 class Temperature extends React.Component {
