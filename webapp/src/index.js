@@ -7,6 +7,8 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'; 
 import temperatureReducers from './reducers/temperatureReducers';
 
+
+
 const store = createStore(temperatureReducers);
 
 ReactDOM.render(

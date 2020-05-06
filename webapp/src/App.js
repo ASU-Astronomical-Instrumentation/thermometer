@@ -3,6 +3,7 @@ import "./App.css";
 import { connect } from 'react-redux';
 import Temp from "./components/Temperature/TemperatureDisplay";
 import TemporarySetTemperature from "./components/temporarySetTemperature";
+import './fonts/Orbitron-Bold.ttf'
 
 class App extends React.Component  {
   constructor(props) {

@@ -2,7 +2,7 @@ import React from "react";
 import styled from 'styled-components'
 
 const H1 = styled.h1`
-  font-family: courier;
+  font-family: Orbitron;
   color: white;
   font-size: 12em;
 `
