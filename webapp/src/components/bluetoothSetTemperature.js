@@ -1,10 +1,10 @@
 import React from "react";
-import { bindActionCreators } from 'redux'; 
+import { bindActionCreators } from 'redux';
 import * as temperatureActions from '../actions/temperatureActions';
 import { connect } from 'react-redux'
+import * as bt from '../bt_temp'
 
-
-class TemporarySetTemperature extends React.Component  {
+class BluetoothSetTemperature extends React.Component  {
   constructor(props) {
     super(props);
   }
@@ -13,12 +13,14 @@ class TemporarySetTemperature extends React.Component  {
   // these values will be updated every second?
   // we can also convert F to C on our frontend instead of taking 2 values from the bytestream
   // let degrees = 69.1;
-  
+
   componentDidMount() {
     this.count = setInterval( () => {
-      let randomTemperature = (Math.random() * (115 - 90) + 90).toPrecision(4);
-      this.props.actions.setTemperature(randomTemperature);
-    }, 3000); 
+      let readTemperature = bt.bt_temp_read(
+         this.conn,
+         bt.bt_temp_consts.characteristics.temperature_measurement.str);
+      this.props.actions.setTemperature(readTemperature);
+    }, 1000);
   }
 
   componentWillUnmount() {
@@ -26,8 +28,6 @@ class TemporarySetTemperature extends React.Component  {
   }
 
   render() {
-
-
     return (
       <div className="App">
       </div>
@@ -45,4 +45,4 @@ const mapStateToProps = state => ({
     temperatureDisplay: state.temperatureDisplay
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TemporarySetTemperature);
+export default connect(mapStateToProps, mapDispatchToProps)(BluetoothSetTemperature);

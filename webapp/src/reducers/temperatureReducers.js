@@ -1,24 +1,24 @@
-import { SET_TEMPERATURE } from '../actions/actionTypes'; 
+import { SET_TEMPERATURE } from '../actions/actionTypes';
 
 const initialState = {
     temperatureDisplay: {
-        temperature: 10
+        temperature: "#.##"
     }
 }
 
 function temperatureReducer(state = initialState, action) {
     switch(action.type) {
-        case SET_TEMPERATURE: 
+        case SET_TEMPERATURE:
             return {
-                ...state, 
+                ...state,
                 temperatureDisplay: {
-                    ...state.temperatureDisplay, 
+                    ...state.temperatureDisplay,
                     temperature: action.newTemperature
                 }
             }
-        default: 
+        default:
             return state
     }
 }
 
-export default temperatureReducer; 
+export default temperatureReducer;
