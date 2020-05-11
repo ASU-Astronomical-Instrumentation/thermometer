@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "fc316ce974a6cc911e55577ac4f5bea1",
+    "revision": "5232a59bffb3e539b6fa523863aabab9",
     "url": "/thermometer/index.html"
   },
   {
