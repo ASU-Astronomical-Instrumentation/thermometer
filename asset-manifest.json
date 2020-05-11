@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/react-gh-pages/static/css/main.9eb5f165.chunk.css",
-    "main.js": "/react-gh-pages/static/js/main.09b56395.chunk.js",
-    "main.js.map": "/react-gh-pages/static/js/main.09b56395.chunk.js.map",
-    "runtime-main.js": "/react-gh-pages/static/js/runtime-main.49c76597.js",
-    "runtime-main.js.map": "/react-gh-pages/static/js/runtime-main.49c76597.js.map",
-    "static/js/2.79900d61.chunk.js": "/react-gh-pages/static/js/2.79900d61.chunk.js",
-    "static/js/2.79900d61.chunk.js.map": "/react-gh-pages/static/js/2.79900d61.chunk.js.map",
-    "index.html": "/react-gh-pages/index.html",
-    "precache-manifest.fd626c788e30e759998cf4fcdc5e64ff.js": "/react-gh-pages/precache-manifest.fd626c788e30e759998cf4fcdc5e64ff.js",
-    "service-worker.js": "/react-gh-pages/service-worker.js",
-    "static/css/main.9eb5f165.chunk.css.map": "/react-gh-pages/static/css/main.9eb5f165.chunk.css.map",
-    "static/js/2.79900d61.chunk.js.LICENSE.txt": "/react-gh-pages/static/js/2.79900d61.chunk.js.LICENSE.txt",
-    "static/media/Orbitron-Bold.ttf": "/react-gh-pages/static/media/Orbitron-Bold.10f7e47e.ttf"
+    "main.css": "/thermometer/static/css/main.60d24f6d.chunk.css",
+    "main.js": "/thermometer/static/js/main.5c314b7e.chunk.js",
+    "main.js.map": "/thermometer/static/js/main.5c314b7e.chunk.js.map",
+    "runtime-main.js": "/thermometer/static/js/runtime-main.e5da8d77.js",
+    "runtime-main.js.map": "/thermometer/static/js/runtime-main.e5da8d77.js.map",
+    "static/js/2.ace3473f.chunk.js": "/thermometer/static/js/2.ace3473f.chunk.js",
+    "static/js/2.ace3473f.chunk.js.map": "/thermometer/static/js/2.ace3473f.chunk.js.map",
+    "index.html": "/thermometer/index.html",
+    "precache-manifest.81b6bf3836d54d2e20d1e2b08d48cca7.js": "/thermometer/precache-manifest.81b6bf3836d54d2e20d1e2b08d48cca7.js",
+    "service-worker.js": "/thermometer/service-worker.js",
+    "static/css/main.60d24f6d.chunk.css.map": "/thermometer/static/css/main.60d24f6d.chunk.css.map",
+    "static/js/2.ace3473f.chunk.js.LICENSE.txt": "/thermometer/static/js/2.ace3473f.chunk.js.LICENSE.txt",
+    "static/media/Orbitron-Bold.ttf": "/thermometer/static/media/Orbitron-Bold.10f7e47e.ttf"
   },
   "entrypoints": [
-    "static/js/runtime-main.49c76597.js",
-    "static/js/2.79900d61.chunk.js",
-    "static/css/main.9eb5f165.chunk.css",
-    "static/js/main.09b56395.chunk.js"
+    "static/js/runtime-main.e5da8d77.js",
+    "static/js/2.ace3473f.chunk.js",
+    "static/css/main.60d24f6d.chunk.css",
+    "static/js/main.5c314b7e.chunk.js"
   ]
 }
