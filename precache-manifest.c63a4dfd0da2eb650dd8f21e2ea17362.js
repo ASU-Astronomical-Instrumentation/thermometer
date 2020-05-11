@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d7947d09ade45a404143d037a8ca84ab",
+    "revision": "fc316ce974a6cc911e55577ac4f5bea1",
     "url": "/thermometer/index.html"
   },
   {
-    "revision": "fbcfa9c1bde55a62f48e",
+    "revision": "a8f7822d20676f8b95da",
     "url": "/thermometer/static/css/main.60d24f6d.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/thermometer/static/js/2.ace3473f.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "fbcfa9c1bde55a62f48e",
-    "url": "/thermometer/static/js/main.5c314b7e.chunk.js"
+    "revision": "a8f7822d20676f8b95da",
+    "url": "/thermometer/static/js/main.eaff7179.chunk.js"
   },
   {
     "revision": "8468241a1a498e40383f",
