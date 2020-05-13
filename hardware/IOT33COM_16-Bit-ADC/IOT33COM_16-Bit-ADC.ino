@@ -12,7 +12,7 @@ BLEService tempService("1809");
 BLECharacteristic tempMeasureChar("2A1C", BLERead | BLENotify, 5);
 
 // Gets the temperature in Celsius from the sensor pin
-float getTemp(int sensorPin, float offset=5.6, int maxCount=1000);
+float getTemp();
 
 /*
 * TMP36 Pin Variables
@@ -29,7 +29,7 @@ boolean DEBUG = true;
 */
 void setup() {
     ads1015.begin();
-    
+
     Serial.begin(9600);  //Start the serial connection with the computer
     //to view the result open the serial monitor
     if (!BLE.begin())
@@ -44,7 +44,7 @@ void setup() {
     BLE.setAdvertisedService(tempService);
     tempService.addCharacteristic(tempMeasureChar);
     BLE.addService(tempService);
-    
+
     ads1015.setGain(GAIN_ONE);     // 1x gain   +/- 4.096V  1 bit = 2mV
     int16_t adc0, adc1, adc2, adc3;
 
@@ -63,7 +63,7 @@ void loop() {
 
     if (central) {
         while (central.connected()) {
-            double temperatureC = getTemp(sensorPin);
+            double temperatureC = getTemp();
             if (DEBUG) {
                 Serial.print(temperatureC); Serial.println(" degrees C");
             }
@@ -86,15 +86,9 @@ void loop() {
     delay(1000);
 }
 
-float getTemp(int sensorPin, float offset, int maxCount) {
-//    int sumVal = 0;
-//    for (int i = 0; i < maxCount; i++) {
-//        sumVal += analogRead(sensorPin);
-//       delay(0.5);
-//    }
-    int16_t adc0 = ads1015.readADC_SingleEnded(0);
-    float voltage = adc0 * 0.002; //sumVal / maxCount * 3.267;
-    //voltage /= 4096.0;
+float getTemp() {
+    int16_t adc = ads1015.readADC_SingleEnded(0);
+    float voltage = adc * 0.002;
 
     if (DEBUG) {
         Serial.print(voltage, 4); Serial.println(" volts");
